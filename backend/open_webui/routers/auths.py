@@ -213,7 +213,7 @@ async def ldap_auth(request: Request, response: Response, form_data: LdapForm):
             authentication="SIMPLE",
         )
         if not connection_app.bind():
-            raise HTTPException(400, detail="Application account bind failed")
+            raise HTTPException(400, detail=f"Application account bind failed, result:{connection_app.result}, last error:{connection_app.last_error}")
 
         search_success = connection_app.search(
             search_base=LDAP_SEARCH_BASE,
